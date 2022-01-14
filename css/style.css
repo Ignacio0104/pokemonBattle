@@ -1,0 +1,17 @@
+div{
+    border: 1px solid black;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: repeat(5,200px);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(50px,auto);
+}
+
+.pokemon-image {
+    display: flex;
+    width: 80%;
+    margin: auto;
+}
+
