@@ -1,6 +1,9 @@
 mainContainer=document.querySelector(".container");
 
 let playerHand=[];
+let computerHand=[];
+let playerCardsDealt='n';
+let computerCardsDealt='n';
 
 function fetchPokemon(id) {
 fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
@@ -10,24 +13,57 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
     })
 }
 
-function drawPokemon()
+function displayPokemon (array)
 {
+    for(i=0;i<array.length;i++)
+    {
+        fetchPokemon(array[i]); 
+        console.log(array[i]);
+    }
+    array=[];
+}
+
+function drawCards(array)
+{
+   
     let i=0
-    let pokemon;
     while(i<=4)
     {
         id=Math.round(Math.random() * (386- 1) + 1);
-        playerHand.push(id);
+        array.push(id);
         i++;
     }
-
-    for(j=0;j<playerHand.length;j++)
-    {
-        fetchPokemon(playerHand[j]);  
-    }
-
-    playerHand=[];
+    
 }
+
+function drawPlayerHand()
+{
+   if(playerCardsDealt==='n')
+    {
+        drawCards(playerHand);
+        displayPokemon(playerHand);
+        playerCardsDealt='s';
+
+    }else
+    {
+        alert("Cards has already been dealt");
+    }
+}
+
+function drawComputerHand()
+{
+    if(computerCardsDealt==='n')
+    {
+        drawCards(computerHand);
+        displayPokemon(computerHand);
+        computerCardsDealt='s';
+
+    }else
+    {
+        alert("Cards has already been dealt");
+    }
+}
+
 
 function createPokemon(pokemon)
 {
@@ -52,6 +88,4 @@ function createPokemon(pokemon)
     const power = document.createElement("div");
     power.innerText=`El poder del pokemon es ${pokemon.stats[0].base_stat}`;
     cardContainer.appendChild(power);
-
-    console.log("List");
 }
