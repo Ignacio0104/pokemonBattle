@@ -1,17 +1,22 @@
 mainContainer=document.querySelector(".container");
+resultsContainer=document.querySelector(".results");
 
 let playerHand=[];
 let computerHand=[];
 let playerCardsDealt='n';
 let computerCardsDealt='n';
 
+//Eventlisteners
+cardContainer.addEventListener("click",test);
+
 function fetchPokemon(id) {
 fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
     .then((res) => res.json())
     .then((data) => {
-    createPokemon(data);
-    })
+    createPokemon(data)
+    }).catch(err=>alert(err));
 }
+
 
 function displayPokemon (array)
 {
@@ -20,12 +25,10 @@ function displayPokemon (array)
         fetchPokemon(array[i]); 
         console.log(array[i]);
     }
-    array=[];
 }
 
 function drawCards(array)
 {
-   
     let i=0
     while(i<=4)
     {
@@ -33,7 +36,6 @@ function drawCards(array)
         array.push(id);
         i++;
     }
-    
 }
 
 function drawPlayerHand()
@@ -64,7 +66,6 @@ function drawComputerHand()
     }
 }
 
-
 function createPokemon(pokemon)
 {
     const cardContainer = document.createElement("div")
@@ -73,7 +74,7 @@ function createPokemon(pokemon)
 
     const pokemonName = document.createElement("div");
     pokemonName.classList.add('name');
-    pokemonName.innerText=`El pokemon es ${pokemon.name}`;
+    pokemonName.innerText=`#${pokemon.id} - ${pokemon.name}`;
     cardContainer.appendChild(pokemonName);
 
     const imageContainer=document.createElement("div");
@@ -86,6 +87,73 @@ function createPokemon(pokemon)
     imageContainer.appendChild(image);
     
     const power = document.createElement("div");
-    power.innerText=`El poder del pokemon es ${pokemon.stats[0].base_stat}`;
+    power.innerText=`Pokemon Power: ${pokemon.stats[0].base_stat}`;
     cardContainer.appendChild(power);
+
+    cardContainer.addEventListener("click",test);
+}
+
+function battle(number)
+{
+    const results = document.createElement("div");
+    resultsContainer.appendChild(results);
+
+    let pokemonUnoStats;
+    let pokemonDosStats;
+    let pokemonUnoName;
+    let pokemonDosName;
+    let result;
+
+        fetch(`https://pokeapi.co/api/v2/pokemon/${playerHand[number]}/`)
+        .then((res) => res.json())
+        .then((data) => {
+            pokemonUnoStats=data.stats[0].base_stat;
+            pokemonUnoName=data.name;
+            fetch(`https://pokeapi.co/api/v2/pokemon/${computerHand[number]}/`)
+            .then((res) => res.json())
+            .then((data) => {
+                pokemonDosStats=data.stats[0].base_stat
+                pokemonDosName=data.name;
+
+                result=statComparison(pokemonUnoStats,pokemonDosStats);
+
+                if(result==1)
+                {
+                    results.innerText=`El pokemon ${pokemonUnoName} venció a ${pokemonDosName}. Punto para el jugador`;
+                } else
+                {
+                    if(result==-1)
+                    {
+                        results.innerText=`El pokemon ${pokemonDosName} venció a ${pokemonUnoName}. Punto para la computadora`;
+                    } else
+                    {
+                        results.innerText=`Hubo un empate`;
+                    }
+                }
+
+            }).catch(err=>console.log(err));
+
+        }).catch(err=>alert(err));
+}
+
+function statComparison (statUno,statDos)
+{
+    let result=0;
+    if(statUno>statDos)
+    {
+        result=1;
+    } else
+    {
+        if(statUno<statDos)
+        {
+            result=-1
+        }
+    } 
+
+    return result;
+}
+
+function test ()
+{
+    
 }
