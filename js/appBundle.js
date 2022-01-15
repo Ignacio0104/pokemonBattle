@@ -7,7 +7,7 @@ let playerCardsDealt='n';
 let computerCardsDealt='n';
 
 //Eventlisteners
-cardContainer.addEventListener("click",test);
+
 
 function fetchPokemon(id) {
 fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
@@ -72,9 +72,14 @@ function createPokemon(pokemon)
     cardContainer.classList.add('card-container');
     mainContainer.appendChild(cardContainer);
 
+    const pokemonNumber = document.createElement("div");
+    pokemonNumber.classList.add('number');
+    pokemonNumber.innerText=`${pokemon.id}`;
+    cardContainer.appendChild(pokemonNumber);
+
     const pokemonName = document.createElement("div");
     pokemonName.classList.add('name');
-    pokemonName.innerText=`#${pokemon.id} - ${pokemon.name}`;
+    pokemonName.innerText=`${pokemon.name}`;
     cardContainer.appendChild(pokemonName);
 
     const imageContainer=document.createElement("div");
@@ -90,7 +95,7 @@ function createPokemon(pokemon)
     power.innerText=`Pokemon Power: ${pokemon.stats[0].base_stat}`;
     cardContainer.appendChild(power);
 
-    cardContainer.addEventListener("click",test);
+    pokemonNumber.addEventListener("click",test);
 }
 
 function battle(number)
@@ -153,7 +158,9 @@ function statComparison (statUno,statDos)
     return result;
 }
 
-function test ()
+function test (event)
 {
-    
+    const item = event.target; //item = where we clicked
+    console.log(item.innerText);
+
 }
