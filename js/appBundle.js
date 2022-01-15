@@ -5,6 +5,7 @@ let playerHand=[];
 let computerHand=[];
 let playerCardsDealt='n';
 let computerCardsDealt='n';
+let selectedPokemon=1;
 
 //Eventlisteners
 
@@ -95,7 +96,7 @@ function createPokemon(pokemon)
     power.innerText=`Pokemon Power: ${pokemon.stats[0].base_stat}`;
     cardContainer.appendChild(power);
 
-    pokemonNumber.addEventListener("click",test);
+    pokemonNumber.addEventListener("click",selectPokemon);
 }
 
 function battle(number)
@@ -109,7 +110,7 @@ function battle(number)
     let pokemonDosName;
     let result;
 
-        fetch(`https://pokeapi.co/api/v2/pokemon/${playerHand[number]}/`)
+        fetch(`https://pokeapi.co/api/v2/pokemon/${playerHand[selectedPokemon]}/`)
         .then((res) => res.json())
         .then((data) => {
             pokemonUnoStats=data.stats[0].base_stat;
@@ -158,9 +159,20 @@ function statComparison (statUno,statDos)
     return result;
 }
 
-function test (event)
+function selectPokemon (event)
 {
     const item = event.target; //item = where we clicked
-    console.log(item.innerText);
-
+    let index;
+    for(i=0;i<5;i++)
+    {
+        if(playerHand[i]==item.innerText)
+        {
+            index=i;
+        }
+        
+    }
+    selectedPokemon=index;
+    console.log(selectedPokemon);
 }
+
+

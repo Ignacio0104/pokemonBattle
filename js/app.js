@@ -5,9 +5,10 @@ let playerHand=[];
 let computerHand=[];
 let playerCardsDealt='n';
 let computerCardsDealt='n';
+let selectedPokemon=1;
 
 //Eventlisteners
-cardContainer.addEventListener("click",test);
+
 
 function fetchPokemon(id) {
 fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
@@ -72,9 +73,14 @@ function createPokemon(pokemon)
     cardContainer.classList.add('card-container');
     mainContainer.appendChild(cardContainer);
 
+    const pokemonNumber = document.createElement("div");
+    pokemonNumber.classList.add('number');
+    pokemonNumber.innerText=`${pokemon.id}`;
+    cardContainer.appendChild(pokemonNumber);
+
     const pokemonName = document.createElement("div");
     pokemonName.classList.add('name');
-    pokemonName.innerText=`#${pokemon.id} - ${pokemon.name}`;
+    pokemonName.innerText=`${pokemon.name}`;
     cardContainer.appendChild(pokemonName);
 
     const imageContainer=document.createElement("div");
@@ -90,7 +96,7 @@ function createPokemon(pokemon)
     power.innerText=`Pokemon Power: ${pokemon.stats[0].base_stat}`;
     cardContainer.appendChild(power);
 
-    cardContainer.addEventListener("click",test);
+    pokemonNumber.addEventListener("click",selectPokemon);
 }
 
 function battle(number)
@@ -104,7 +110,7 @@ function battle(number)
     let pokemonDosName;
     let result;
 
-        fetch(`https://pokeapi.co/api/v2/pokemon/${playerHand[number]}/`)
+        fetch(`https://pokeapi.co/api/v2/pokemon/${playerHand[selectedPokemon]}/`)
         .then((res) => res.json())
         .then((data) => {
             pokemonUnoStats=data.stats[0].base_stat;
@@ -153,7 +159,20 @@ function statComparison (statUno,statDos)
     return result;
 }
 
-function test ()
+function selectPokemon (event)
 {
-    
+    const item = event.target; //item = where we clicked
+    let index;
+    for(i=0;i<5;i++)
+    {
+        if(playerHand[i]==item.innerText)
+        {
+            index=i;
+        }
+        
+    }
+    selectedPokemon=index;
+    console.log(selectedPokemon);
 }
+
+
