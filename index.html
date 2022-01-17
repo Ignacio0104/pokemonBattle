@@ -10,25 +10,21 @@
 </head>
 <body>
    
+    <div class="score-container"></div>
     <div class="container">
-        </div>
+        <!--Here is all the information of the pokemons-->
     </div>
 
-    <button onclick="drawPlayerHand(), drawComputerHand()"> Start Game </button>
-    <button onclick="show()">Show Cards</button>
+
+    <button class="start-btn" onclick="drawPlayerHand(), drawComputerHand(),showScoreBoard()"> Start Game </button>
+    <button class="show-btn" onclick="show()">Show Cards</button>
     <br>
-    <button onclick="battle(0)">Battle 1</button>
-    <button onclick="battle(1)">Battle 2</button>
-    <button onclick="battle(2)">Battle 3</button>
-    <button onclick="battle(3)">Battle 4</button>
-    <button onclick="battle(4)">Battle 5</button>
+    <button onclick="battle()">Battle</button>
 
-    
-    <button onclick="test()">Test</button>
 
-    <div class="results">
+    <!--<button onclick="test()">Test</button>-->
 
-    </div>
+    <div class="results"></div>
     
     <script src="js/appBundle.js"></script>
 </body>

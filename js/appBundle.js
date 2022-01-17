@@ -1,11 +1,19 @@
-mainContainer=document.querySelector(".container");
-resultsContainer=document.querySelector(".results");
+const mainContainer=document.querySelector(".container");
+const resultsContainer=document.querySelector(".results");
+const indexScoreContainer=document.querySelector(".score-container");
+const startButton=document.querySelector(".start-btn");
+const showCardsButton=document.querySelector(".show-btn");
+
 
 let playerHand=[];
 let computerHand=[];
+let pokemonUsed=[];
 let playerCardsDealt='n';
 let computerCardsDealt='n';
-let selectedPokemon=1;
+let selectedPokemon=-1;
+let computerPokemon=0;
+let playerPoints=0;
+let computerPoints=0;
 
 //Eventlisteners
 
@@ -16,11 +24,8 @@ function show()
     {
         displayPokemon(playerHand[i]);
     }
-    
-    for(i=0;i<computerHand.length;i++)
-    {
-        displayPokemon(computerHand[i]);
-    }
+
+    showCardsButton.style.transform="scale(0)";
 
 }
 
@@ -48,6 +53,12 @@ function drawPlayerHand()
     {
         alert("Cards has already been dealt");
     }
+
+    alert("Cards dealt");
+
+    startButton.style.transform="scale(0)";
+
+
 }
 
 function drawComputerHand()
@@ -73,9 +84,6 @@ function drawCards()
         i++;
     }
 
-    alert("Cards dealt");
-
-    return i;
 }
 
 function fetchPokemon(id) {
@@ -101,7 +109,6 @@ function createPokemon(pokemon)
 }
 
 
-
 function displayPokemon(pokemon)
 {
     const cardContainer = document.createElement("div")
@@ -115,7 +122,7 @@ function displayPokemon(pokemon)
 
     const pokemonName = document.createElement("div");
     pokemonName.classList.add('name');
-    pokemonName.innerText=`${pokemon.name}`;
+    pokemonName.innerText=`${pokemon.name.toUpperCase()}`;
     cardContainer.appendChild(pokemonName);
 
     const imageContainer=document.createElement("div");
@@ -135,29 +142,51 @@ function displayPokemon(pokemon)
 
 }
 
-function battle(number)
+function battle()
 {
-    const results = document.createElement("div");
-    resultsContainer.appendChild(results);
-    let result;
-
-    result=statComparison(playerHand[selectedPokemon].power,computerHand[number].power);
-
-    if(result==1)
+    if(selectedPokemon>-1)
     {
-        results.innerText=
-        `El pokemon ${playerHand[selectedPokemon].name} venció a ${computerHand[number].name}. Punto para el jugador`;
-    } else
-    {
-        if(result==-1)
+        if(pokemonUsed.indexOf(selectedPokemon)===-1)
         {
-            results.innerText
-            =`El pokemon ${computerHand[number].name} venció a ${playerHand[selectedPokemon].name}. Punto para la computadora`;
-        } else
+            const results = document.createElement("div");
+            resultsContainer.appendChild(results);
+            let result;
+        
+            displayPokemon(computerHand[computerPokemon]);
+            result=statComparison(playerHand[selectedPokemon].power,computerHand[computerPokemon].power);
+            
+            if(result==1)
+            {
+                results.innerText=
+                `${playerHand[selectedPokemon].name.toUpperCase()} has beaten ${computerHand[computerPokemon].name.toUpperCase()}. Point for the player`;
+                playerPoints++;
+
+            } else
+            {
+                if(result==-1)
+                {
+                    results.innerText
+                    =`${computerHand[computerPokemon].name.toUpperCase()} has beaten ${playerHand[selectedPokemon].name.toUpperCase()}. Point for the computer`;
+                    computerPoints++;
+                } else
+                {
+                    results.innerText=`There was a tie`;
+                }
+            } 
+            pokemonUsed.push(selectedPokemon);
+            computerPokemon++;
+            showScoreBoard();
+
+        }else
         {
-            results.innerText=`Hubo un empate`;
+            alert("This pokemon has already been used");
         }
+
+    }else
+    {
+        alert("Please select your Pokemon");
     }
+
 }
 
 function statComparison (statUno,statDos)
@@ -190,6 +219,21 @@ function selectPokemon (event)
     }
     selectedPokemon=index;
     console.log(selectedPokemon);
+}
+
+function showScoreBoard()
+{
+    indexScoreContainer.innerText="Scoreboard";
+
+    const playerScore = document.createElement("div")
+    playerScore.classList.add('player-container');
+    playerScore.innerText=`Player: ${playerPoints}`;
+    indexScoreContainer.appendChild(playerScore);
+   
+    const computerScore = document.createElement("div")
+    computerScore.classList.add('computer-container');
+    computerScore.innerText=`Computer: ${computerPoints}`;
+    indexScoreContainer.appendChild(computerScore);
 }
 
 
