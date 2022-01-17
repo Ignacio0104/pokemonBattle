@@ -9,33 +9,32 @@ let selectedPokemon=1;
 
 //Eventlisteners
 
-
-function fetchPokemon(id) {
-fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
-    .then((res) => res.json())
-    .then((data) => {
-    createPokemon(data)
-    }).catch(err=>alert(err));
-}
-
-
-function displayPokemon (array)
+function show()
 {
-    for(i=0;i<array.length;i++)
+
+    for(i=0;i<playerHand.length;i++)
     {
-        fetchPokemon(array[i]); 
-        console.log(array[i]);
+        displayPokemon(playerHand[i]);
     }
+    
+    for(i=0;i<computerHand.length;i++)
+    {
+        displayPokemon(computerHand[i]);
+    }
+
 }
 
-function drawCards(array)
+function test()
 {
-    let i=0
-    while(i<=4)
+    for(i=0;i<playerHand.length;i++)
     {
-        id=Math.round(Math.random() * (386- 1) + 1);
-        array.push(id);
-        i++;
+        console.log(playerHand[i]);
+    }
+    
+    for(i=0;i<computerHand.length;i++)
+    {
+        console.log(computerHand[i]);
+  
     }
 }
 
@@ -43,10 +42,8 @@ function drawPlayerHand()
 {
    if(playerCardsDealt==='n')
     {
-        drawCards(playerHand);
-        displayPokemon(playerHand);
+        drawCards();
         playerCardsDealt='s';
-
     }else
     {
         alert("Cards has already been dealt");
@@ -57,8 +54,7 @@ function drawComputerHand()
 {
     if(computerCardsDealt==='n')
     {
-        drawCards(computerHand);
-        displayPokemon(computerHand);
+        drawCards();
         computerCardsDealt='s';
 
     }else
@@ -67,7 +63,46 @@ function drawComputerHand()
     }
 }
 
+function drawCards()
+{
+    let i=0
+    while(i<5)
+    {
+        id=Math.round(Math.random() * (386- 1) + 1);
+        fetchPokemon(id); 
+        i++;
+    }
+
+    alert("Cards dealt");
+
+    return i;
+}
+
+function fetchPokemon(id) {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+    .then((res) => res.json())
+    .then((data) => {
+        createPokemon(data);
+    }).catch(err=>alert(err));
+}
+
 function createPokemon(pokemon)
+{
+    newPokemon = new Pokemon(pokemon.id,pokemon.name,pokemon.stats[0].base_stat,pokemon.sprites.front_default);
+    
+    if(playerHand.length<5)
+    {
+        playerHand.push(newPokemon);
+  
+    }else
+    {
+        computerHand.push(newPokemon);
+    }
+}
+
+
+
+function displayPokemon(pokemon)
 {
     const cardContainer = document.createElement("div")
     cardContainer.classList.add('card-container');
@@ -89,57 +124,40 @@ function createPokemon(pokemon)
 
     const image = document.createElement("img");
     image.classList.add("pokemon-image");
-    image.src= pokemon.sprites.front_default;
+    image.src= `${pokemon.image}`
     imageContainer.appendChild(image);
     
     const power = document.createElement("div");
-    power.innerText=`Pokemon Power: ${pokemon.stats[0].base_stat}`;
+    power.innerText=`Pokemon Power: ${pokemon.power}`;
     cardContainer.appendChild(power);
 
     pokemonNumber.addEventListener("click",selectPokemon);
+
 }
 
 function battle(number)
 {
     const results = document.createElement("div");
     resultsContainer.appendChild(results);
-
-    let pokemonUnoStats;
-    let pokemonDosStats;
-    let pokemonUnoName;
-    let pokemonDosName;
     let result;
 
-        fetch(`https://pokeapi.co/api/v2/pokemon/${playerHand[selectedPokemon]}/`)
-        .then((res) => res.json())
-        .then((data) => {
-            pokemonUnoStats=data.stats[0].base_stat;
-            pokemonUnoName=data.name;
-            fetch(`https://pokeapi.co/api/v2/pokemon/${computerHand[number]}/`)
-            .then((res) => res.json())
-            .then((data) => {
-                pokemonDosStats=data.stats[0].base_stat
-                pokemonDosName=data.name;
+    result=statComparison(playerHand[selectedPokemon].power,computerHand[number].power);
 
-                result=statComparison(pokemonUnoStats,pokemonDosStats);
-
-                if(result==1)
-                {
-                    results.innerText=`El pokemon ${pokemonUnoName} venció a ${pokemonDosName}. Punto para el jugador`;
-                } else
-                {
-                    if(result==-1)
-                    {
-                        results.innerText=`El pokemon ${pokemonDosName} venció a ${pokemonUnoName}. Punto para la computadora`;
-                    } else
-                    {
-                        results.innerText=`Hubo un empate`;
-                    }
-                }
-
-            }).catch(err=>console.log(err));
-
-        }).catch(err=>alert(err));
+    if(result==1)
+    {
+        results.innerText=
+        `El pokemon ${playerHand[selectedPokemon].name} venció a ${computerHand[number].name}. Punto para el jugador`;
+    } else
+    {
+        if(result==-1)
+        {
+            results.innerText
+            =`El pokemon ${computerHand[number].name} venció a ${playerHand[selectedPokemon].name}. Punto para la computadora`;
+        } else
+        {
+            results.innerText=`Hubo un empate`;
+        }
+    }
 }
 
 function statComparison (statUno,statDos)
@@ -165,11 +183,10 @@ function selectPokemon (event)
     let index;
     for(i=0;i<5;i++)
     {
-        if(playerHand[i]==item.innerText)
+        if(playerHand[i].id==item.innerText)
         {
             index=i;
         }
-        
     }
     selectedPokemon=index;
     console.log(selectedPokemon);

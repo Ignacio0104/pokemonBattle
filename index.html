@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="js/Pokemon.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -13,15 +14,17 @@
         </div>
     </div>
 
-    <button onclick="drawPlayerHand()"> Deal player's hand</button>
-
-    <button onclick="drawComputerHand()"> Deal computer's hand</button>
+    <button onclick="drawPlayerHand(), drawComputerHand()"> Start Game </button>
+    <button onclick="show()">Show Cards</button>
     <br>
     <button onclick="battle(0)">Battle 1</button>
     <button onclick="battle(1)">Battle 2</button>
     <button onclick="battle(2)">Battle 3</button>
     <button onclick="battle(3)">Battle 4</button>
     <button onclick="battle(4)">Battle 5</button>
+
+    
+    <button onclick="test()">Test</button>
 
     <div class="results">
 
