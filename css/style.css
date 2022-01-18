@@ -20,7 +20,6 @@ div{
     height: 135px;
     
 }
-
 .pokemon-image {
     display: flex;
     height: 100%;
@@ -32,15 +31,17 @@ div{
     border: none;
 }
 
+
 .pokemon-number{
     width: 100%;
     border: none;
+    justify-content: center;
 }
 
 .pokemon-name{
     width: 100%;
 }
-.number:hover{
+.pokemon-number:hover{
     background-color: blue;
 }
 
