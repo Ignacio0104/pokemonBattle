@@ -1,3 +1,5 @@
+@import url('http://fonts.cdnfonts.com/css/pokemon-solid');
+
 div{
     border: 1px solid black;
 }
@@ -9,6 +11,23 @@ div{
     grid-auto-rows: minmax(50px,auto);
     margin-bottom: 20px;
     padding-left: 5px;
+}
+
+.main-title h1{
+    font-family: 'Pokemon Solid', sans-serif;
+    letter-spacing: 7px;
+    font-size: 50px;
+    -webkit-text-fill-color: rgb(255, 208, 0);
+    -webkit-text-stroke-color: blue;
+    -webkit-text-stroke-width: 1px; 
+}
+
+.button-container,.main-title{
+    display: flex;
+    justify-content: center;
+}
+#button-battle, #button-show{
+    display: none;
 }
 
 .card-container{

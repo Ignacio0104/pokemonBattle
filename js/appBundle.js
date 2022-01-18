@@ -3,6 +3,8 @@ const resultsContainer=document.querySelector(".results");
 const indexScoreContainer=document.querySelector(".score-container");
 const startButton=document.querySelector(".start-btn");
 const showCardsButton=document.querySelector(".show-btn");
+const battleButton=document.querySelector(".battle-btn");
+const keypad=document.querySelector(".button-container");
 
 
 let playerHand=[];
@@ -29,8 +31,8 @@ function show()
         displayPokemon(playerHand[i]);
     }
 
-    showCardsButton.style.transform="scale(0)";
-   
+    showCardsButton.style.display="none";
+    battleButton.style.display="flex";
 
 }
 
@@ -59,11 +61,8 @@ function drawPlayerHand()
         alert("Cards has already been dealt");
     }
 
-    alert("Cards dealt");
-
-    startButton.style.transform="scale(0)";
-
-
+    startButton.style.display="none";
+    showCardsButton.style.display="flex";
 }
 
 function drawComputerHand()
