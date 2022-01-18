@@ -19,13 +19,18 @@ let computerPoints=0;
 
 function show()
 {
-
+    for(i=0;i<5;i++)
+    {
+        const backSide = document.querySelector(".card-container-back");
+        backSide.parentNode.removeChild(backSide);
+    }
     for(i=0;i<playerHand.length;i++)
     {
         displayPokemon(playerHand[i]);
     }
 
     showCardsButton.style.transform="scale(0)";
+   
 
 }
 
@@ -72,6 +77,15 @@ function drawComputerHand()
     {
         alert("Cards has already been dealt");
     }
+
+    for(i=0;i<5;i++)
+    {
+        const cardContainerBack = document.createElement("img")
+        cardContainerBack.classList.add('card-container-back');
+        cardContainerBack.src="/assets/pokemon-card-back-3.png";
+        mainContainer.appendChild(cardContainerBack);
+
+    }
 }
 
 function drawCards()
@@ -116,12 +130,12 @@ function displayPokemon(pokemon)
     mainContainer.appendChild(cardContainer);
 
     const pokemonNumber = document.createElement("div");
-    pokemonNumber.classList.add('number');
+    pokemonNumber.classList.add('pokemon-number');
     pokemonNumber.innerText=`${pokemon.id}`;
     cardContainer.appendChild(pokemonNumber);
 
     const pokemonName = document.createElement("div");
-    pokemonName.classList.add('name');
+    pokemonName.classList.add('pokemon-name');
     pokemonName.innerText=`${pokemon.name.toUpperCase()}`;
     cardContainer.appendChild(pokemonName);
 
@@ -135,6 +149,7 @@ function displayPokemon(pokemon)
     imageContainer.appendChild(image);
     
     const power = document.createElement("div");
+    power.classList.add("pokemon-power");
     power.innerText=`Pokemon Power: ${pokemon.power}`;
     cardContainer.appendChild(power);
 
@@ -234,6 +249,7 @@ function showScoreBoard()
     computerScore.classList.add('computer-container');
     computerScore.innerText=`Computer: ${computerPoints}`;
     indexScoreContainer.appendChild(computerScore);
+
 }
 
 
