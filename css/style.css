@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Pokemon";
+    src: url("/assets/fonts/Pokemon\ Solid.ttf");
+  }
+
 
 .container{
     display: grid;
@@ -11,7 +16,7 @@
 
 .main-title h1{
     margin-bottom: 20px;
-    font-family: 'Pokemon Solid', sans-serif;
+    font-family: 'Pokemon', sans-serif;
     letter-spacing: 7px;
     font-size: 50px;
     -webkit-text-fill-color: rgb(255, 208, 0);
