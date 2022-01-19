@@ -12,6 +12,7 @@ let computerHand=[];
 let pokemonUsed=[];
 let playerCardsDealt='n';
 let computerCardsDealt='n';
+let pokemonSelection='n';
 let selectedPokemon=-1;
 let computerPokemon=0;
 let playerPoints=0;
@@ -86,6 +87,8 @@ function drawComputerHand()
         mainContainer.appendChild(cardContainerBack);
 
     }
+
+    alert("Good luck!");
 
 }
 
@@ -189,8 +192,8 @@ function battle()
                 }
             } 
             pokemonUsed.push(selectedPokemon);
+            pokemonSelection='n';
             showScoreBoard();
-           // checkScoreBoard();
             computerPokemon++;
         }else
         {
@@ -224,16 +227,25 @@ function statComparison (statUno,statDos)
 
 function selectPokemon (event)
 {
-    const item = event.target; //item = where we clicked
-    let index;
-    for(i=0;i<5;i++)
+    if(pokemonSelection==='n')
     {
-        if(playerHand[i].id==item.innerText)
+        const item = event.target; //item = where we clicked
+        item.parentElement.style.opacity="0.3";
+        let index;
+        for(i=0;i<5;i++)
         {
-            index=i;
+            if(playerHand[i].id==item.innerText)
+            {
+                index=i;
+            }
         }
+        selectedPokemon=index;
+        pokemonSelection='s';
+    } else
+    {
+        alert("You've already selected a Pokemon!");
     }
-    selectedPokemon=index;
+
 }
 
 function showScoreBoard()
