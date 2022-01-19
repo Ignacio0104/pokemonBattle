@@ -64,7 +64,8 @@
     border: 1px solid black;
 }
 .pokemon-number:hover{
-    background-color: blue;
+    transition: 1s ease;
+    background-color: rgba(59, 20, 235, 0.534);
 }
 
 .card-container-back

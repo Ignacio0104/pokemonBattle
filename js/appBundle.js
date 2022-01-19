@@ -155,6 +155,7 @@ function displayPokemon(pokemon)
     cardContainer.appendChild(power);
 
     pokemonNumber.addEventListener("click",selectPokemon);
+  
 
 }
 
