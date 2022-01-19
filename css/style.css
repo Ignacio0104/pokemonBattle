@@ -3,7 +3,6 @@
     src:url("../assets/fonts/Pokemon\ Solid.ttf");
 }
 
-
 .container{
     display: grid;
     grid-template-columns: repeat(5,minmax(120px,220px));
