@@ -1,11 +1,11 @@
 const mainContainer=document.querySelector(".container");
-const resultsContainer=document.querySelector(".results");
+//const resultsContainer=document.querySelector(".results");
 const indexScoreContainer=document.querySelector(".score-container");
 const startButton=document.querySelector(".start-btn");
 const showCardsButton=document.querySelector(".show-btn");
 const battleButton=document.querySelector(".battle-btn");
 const keypad=document.querySelector(".button-container");
-
+const messageBoard=document.querySelector(".messages");
 
 let playerHand=[];
 let computerHand=[];
@@ -16,8 +16,8 @@ let selectedPokemon=-1;
 let computerPokemon=0;
 let playerPoints=0;
 let computerPoints=0;
+let roundNumber=0;
 
-//Eventlisteners
 
 function show()
 {
@@ -32,6 +32,7 @@ function show()
     }
 
     showCardsButton.style.display="none";
+    messageBoard.style.display="flex";
     battleButton.style.display="flex";
 
 }
@@ -81,10 +82,11 @@ function drawComputerHand()
     {
         const cardContainerBack = document.createElement("img")
         cardContainerBack.classList.add('card-container-back');
-        cardContainerBack.src="/assets/pokemon-card-back-3.png";
+        cardContainerBack.src="./assets/pokemon-card-back-3.png";
         mainContainer.appendChild(cardContainerBack);
 
     }
+
 }
 
 function drawCards()
@@ -149,7 +151,7 @@ function displayPokemon(pokemon)
     
     const power = document.createElement("div");
     power.classList.add("pokemon-power");
-    power.innerText=`Pokemon Power: ${pokemon.power}`;
+    power.innerText=`Power: ${pokemon.power}`;
     cardContainer.appendChild(power);
 
     pokemonNumber.addEventListener("click",selectPokemon);
@@ -162,16 +164,14 @@ function battle()
     {
         if(pokemonUsed.indexOf(selectedPokemon)===-1)
         {
-            const results = document.createElement("div");
-            resultsContainer.appendChild(results);
             let result;
-        
+            messageBoard.innerText="";
             displayPokemon(computerHand[computerPokemon]);
             result=statComparison(playerHand[selectedPokemon].power,computerHand[computerPokemon].power);
             
             if(result==1)
             {
-                results.innerText=
+                messageBoard.innerText=
                 `${playerHand[selectedPokemon].name.toUpperCase()} has beaten ${computerHand[computerPokemon].name.toUpperCase()}. Point for the player`;
                 playerPoints++;
 
@@ -179,18 +179,18 @@ function battle()
             {
                 if(result==-1)
                 {
-                    results.innerText
+                    messageBoard.innerText
                     =`${computerHand[computerPokemon].name.toUpperCase()} has beaten ${playerHand[selectedPokemon].name.toUpperCase()}. Point for the computer`;
                     computerPoints++;
                 } else
                 {
-                    results.innerText=`There was a tie`;
+                    messageBoard.innerText=`There was a tie`;
                 }
             } 
             pokemonUsed.push(selectedPokemon);
-            computerPokemon++;
             showScoreBoard();
-
+           // checkScoreBoard();
+            computerPokemon++;
         }else
         {
             alert("This pokemon has already been used");
@@ -198,6 +198,7 @@ function battle()
 
     }else
     {
+        messageBoard.innerText="No Pokemon Selected";
         alert("Please select your Pokemon");
     }
 
@@ -232,11 +233,11 @@ function selectPokemon (event)
         }
     }
     selectedPokemon=index;
-    console.log(selectedPokemon);
 }
 
 function showScoreBoard()
 {
+    
     indexScoreContainer.innerText="Scoreboard";
 
     const playerScore = document.createElement("div")
@@ -248,7 +249,25 @@ function showScoreBoard()
     computerScore.classList.add('computer-container');
     computerScore.innerText=`Computer: ${computerPoints}`;
     indexScoreContainer.appendChild(computerScore);
+    
+    roundNumber++;
+    
+    if(roundNumber>5)
+    {
+        if(computerPoints>playerPoints)
+        {
+            messageBoard.innerText="Better luck next time!";
+        } else 
+        {
+            if(playerPoints>computerPoints)
+            {
+                messageBoard.innerText="Congratulations!! You won!";
+            } else
+            {
+                messageBoard.innerText="There was a tie!";
+            }
+        }
+
+    }
 
 }
-
-
