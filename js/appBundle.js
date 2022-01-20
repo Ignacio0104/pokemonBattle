@@ -19,7 +19,7 @@ let pokemonUsed=[];
 let playerCardsDealt='n';
 let computerCardsDealt='n';
 let pokemonSelection='n';
-let musicFlag='s';
+let musicFlag='n';
 let selectedPokemon=-1;
 let computerPokemon=0;
 let playerPoints=0;
@@ -208,7 +208,7 @@ function displayPokemon(pokemon)
     power.innerText=`Power: ${pokemon.power}`;
     cardContainer.appendChild(power);
 
-    pokemonNumber.addEventListener("click",selectPokemon);
+    image.addEventListener("click",selectPokemon);
   
 
 }
@@ -287,11 +287,12 @@ function selectPokemon (event)
     if(pokemonSelection==='n')
     {
         const item = event.target; //item = where we clicked
-        item.parentElement.style.opacity="0.3";
+        item.parentElement.parentElement.style.opacity="0.3";
+        let clickedPokemon=item.parentElement.parentElement.firstChild.innerText;
         let index;
         for(i=0;i<5;i++)
         {
-            if(playerHand[i].id==item.innerText)
+            if(playerHand[i].id==clickedPokemon)
             {
                 index=i;
             }

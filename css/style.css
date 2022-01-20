@@ -33,7 +33,6 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: 10px;
-    
 }
 #button-battle, #button-show, #message-div{
     display: none;
@@ -43,12 +42,10 @@
     border-radius: 10px;
     border: 1px solid black;
 }
-
 .pokemon-image-container{
     width: 100%;
     height: 120px;
     border: 1px solid black;
-    
 }
 .pokemon-image {
     display: flex;
@@ -62,7 +59,6 @@
     border: 1px solid black;
 }
 
-
 .pokemon-number{
     width: 100%;
     border: none;
@@ -73,10 +69,6 @@
 .pokemon-name{
     width: 100%;
     border: 1px solid black;
-}
-.pokemon-number:hover{
-    transition: 1s ease;
-    background-color: rgba(59, 20, 235, 0.534);
 }
 
 .card-container-back
@@ -101,6 +93,62 @@
     position: sticky;
 }
 
+@media screen and (max-width: 660px) {
+
+    .main-title h1{
+        letter-spacing: 7px;
+        font-size: 40px;
+        margin-bottom: 0;
+        -webkit-text-fill-color: rgb(255, 208, 0);
+        -webkit-text-stroke-color: blue;
+        -webkit-text-stroke-width: 1px; 
+    }
+
+    .button-container, #stop-music-button{
+        font-size: 10px;
+        padding: 5px;
+    }
+    /*#button-start,#button-reset,#stop-music-button,#button-show,#button-battle{
+
+    }*/
+
+    .score-container{
+        display: grid;
+        grid-template-columns: repeat(3,auto);
+        justify-content: space-around;
+        font-size: 10px;
+    }
+    
+    .container{
+        display: grid;
+        grid-template-columns: repeat(5,auto);
+        grid-gap: 5px;
+        grid-auto-rows: minmax(auto,20vh);
+        margin-bottom: 10px;
+        padding-left: 5px;
+        justify-content: center;
+        font-size: 10px;
+    }
+
+    .card-container-back{
+        width: 100%;
+        height: 20vh;
+    }
+
+    .pokemon-image {
+        display: flex;
+        height: auto;
+        margin: auto;
+    }
+
+    .pokemon-power{
+        width: auto;
+        border: none;
+        border: 1px solid black;
+        font-size: 8px;
+    }
+
+}
 /*
 .results-show{
     display: flex;
