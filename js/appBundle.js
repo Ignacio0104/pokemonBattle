@@ -7,11 +7,11 @@ const battleButton=document.querySelector(".battle-btn");
 const keypad=document.querySelector(".button-container");
 const messageBoard=document.querySelector(".messages");
 const openingSong= document.getElementById("start-sng");
-const battleSong= new Audio("../assets/010 Battle! Wild Pokémon (Johto).mp3");
-const wonRound=new Audio("../assets/F5YUGD6-game-award.mp3");
-const lostRound= new Audio("../assets/A47ZCE2-short-losing-disappoint.mp3");
-const wonGame=new Audio("../assets/011 Victory Against Wild Pokémon!.mp3");
-const lostGame=new Audio("../assets/ZVM6WN2-game-lose-01.mp3");
+const battleSong= document.getElementById("battle-sng");
+const wonRound=document.getElementById("won-snd");
+const lostRound= document.getElementById("lose-snd");
+const wonGame=document.getElementById("victory-sng");
+const lostGame=document.getElementById("lose-sng");
 
 let playerHand=[];
 let computerHand=[];
@@ -135,7 +135,7 @@ function drawComputerHand()
     {
         const cardContainerBack = document.createElement("img")
         cardContainerBack.classList.add('card-container-back');
-        cardContainerBack.src="./assets/pokemon-card-back-3.png";
+        cardContainerBack.src="../assets/img/pokemon-card-back-3.png";
         mainContainer.appendChild(cardContainerBack);
 
     }
@@ -330,16 +330,24 @@ function showScoreBoard()
         if(computerPoints>playerPoints)
         {
             messageBoard.innerText="Better luck next time!";
-            battleSong.pause();
-            lostGame.play();
+
+            if(musicFlag==='s')
+            {
+                battleSong.pause();
+                lostGame.play();
+            }
+
             messageBoard.style.background="black";
         } else 
         {
             if(playerPoints>computerPoints)
             {
                 messageBoard.innerText="Congratulations!! You won!";
-                battleSong.pause();
-                wonGame.play();
+                if(musicFlag==='s')
+                {
+                    battleSong.pause();
+                    wonGame.play();
+                }
                 messageBoard.style.background="black";
             } else
             {
