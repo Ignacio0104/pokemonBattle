@@ -146,6 +146,7 @@
     .pokemon-name{
         width: auto;
         font-size: 7px;
+        padding-top: 2px;
     }
 
     .pokemon-power{
