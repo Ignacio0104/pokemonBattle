@@ -3,6 +3,11 @@
     src:url("../assets/fonts/Pokemon\ Solid.ttf");
 }
 
+.stop-music{
+    font-size: 15px;
+    padding: 0;
+}
+
 .container{
     display: grid;
     grid-template-columns: repeat(5,minmax(120px,220px));
@@ -27,6 +32,7 @@
 .button-container,.main-title{
     display: flex;
     justify-content: space-around;
+    margin-bottom: 10px;
     
 }
 #button-battle, #button-show, #message-div{

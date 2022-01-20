@@ -6,12 +6,20 @@ const showCardsButton=document.querySelector(".show-btn");
 const battleButton=document.querySelector(".battle-btn");
 const keypad=document.querySelector(".button-container");
 const messageBoard=document.querySelector(".messages");
+const openingSong= new Audio("../assets/002 Title Screen.mp3");
+const battleSong= new Audio("../assets/010 Battle! Wild Pokémon (Johto).mp3");
+const wonRound=new Audio("../assets/F5YUGD6-game-award.mp3");
+const lostRound= new Audio("../assets/A47ZCE2-short-losing-disappoint.mp3");
+const wonGame=new Audio("../assets/011 Victory Against Wild Pokémon!.mp3");
+const lostGame=new Audio("../assets/ZVM6WN2-game-lose-01.mp3");
 
 let playerHand=[];
 let computerHand=[];
 let pokemonUsed=[];
 let playerCardsDealt='n';
 let computerCardsDealt='n';
+let pokemonSelection='n';
+let musicFlag='s';
 let selectedPokemon=-1;
 let computerPokemon=0;
 let playerPoints=0;
@@ -19,6 +27,48 @@ let computerPoints=0;
 let roundNumber=0;
 
 
+function startStopMusic()
+{
+    if(musicFlag==='s')
+    {
+        musicFlag='n';
+    }else
+    {
+        musicFlag='s';
+    }
+
+    if(playerCardsDealt==='s')
+    {   
+        battleSongTheme();
+    }else
+    {
+        startSong();
+    }
+}
+
+function startSong()
+{
+    if(musicFlag==='s')
+    {
+        openingSong.play();
+    }else
+    {
+        openingSong.pause();
+    } 
+}
+
+function battleSongTheme()
+{
+    if(musicFlag==='s')
+    {
+        openingSong.pause();
+        battleSong.play();
+    }else
+    {
+        battleSong.pause();
+    } 
+
+}
 function show()
 {
     for(i=0;i<5;i++)
@@ -86,6 +136,9 @@ function drawComputerHand()
         mainContainer.appendChild(cardContainerBack);
 
     }
+
+    alert("Good luck!");
+
 
 }
 
@@ -155,6 +208,7 @@ function displayPokemon(pokemon)
     cardContainer.appendChild(power);
 
     pokemonNumber.addEventListener("click",selectPokemon);
+  
 
 }
 
@@ -164,16 +218,18 @@ function battle()
     {
         if(pokemonUsed.indexOf(selectedPokemon)===-1)
         {
-            let result;
+            let result=statComparison(playerHand[selectedPokemon].power,computerHand[computerPokemon].power);
             messageBoard.innerText="";
             displayPokemon(computerHand[computerPokemon]);
-            result=statComparison(playerHand[selectedPokemon].power,computerHand[computerPokemon].power);
             
             if(result==1)
             {
                 messageBoard.innerText=
                 `${playerHand[selectedPokemon].name.toUpperCase()} has beaten ${computerHand[computerPokemon].name.toUpperCase()}. Point for the player`;
                 playerPoints++;
+                wonRound.play();
+                messageBoard.style.background="#3ad5c1";
+                
 
             } else
             {
@@ -182,14 +238,18 @@ function battle()
                     messageBoard.innerText
                     =`${computerHand[computerPokemon].name.toUpperCase()} has beaten ${playerHand[selectedPokemon].name.toUpperCase()}. Point for the computer`;
                     computerPoints++;
+                    lostRound.play();
+                    messageBoard.style.background="#ec604a";
+                    
                 } else
                 {
                     messageBoard.innerText=`There was a tie`;
+                    messageBoard.style.background="black";
                 }
             } 
             pokemonUsed.push(selectedPokemon);
+            pokemonSelection='n';
             showScoreBoard();
-           // checkScoreBoard();
             computerPokemon++;
         }else
         {
@@ -223,16 +283,25 @@ function statComparison (statUno,statDos)
 
 function selectPokemon (event)
 {
-    const item = event.target; //item = where we clicked
-    let index;
-    for(i=0;i<5;i++)
+    if(pokemonSelection==='n')
     {
-        if(playerHand[i].id==item.innerText)
+        const item = event.target; //item = where we clicked
+        item.parentElement.style.opacity="0.3";
+        let index;
+        for(i=0;i<5;i++)
         {
-            index=i;
+            if(playerHand[i].id==item.innerText)
+            {
+                index=i;
+            }
         }
+        selectedPokemon=index;
+        pokemonSelection='s';
+    } else
+    {
+        alert("You've already selected a Pokemon!");
     }
-    selectedPokemon=index;
+
 }
 
 function showScoreBoard()
@@ -257,14 +326,21 @@ function showScoreBoard()
         if(computerPoints>playerPoints)
         {
             messageBoard.innerText="Better luck next time!";
+            battleSong.pause();
+            lostGame.play();
+            messageBoard.style.background="black";
         } else 
         {
             if(playerPoints>computerPoints)
             {
                 messageBoard.innerText="Congratulations!! You won!";
+                battleSong.pause();
+                wonGame.play();
+                messageBoard.style.background="black";
             } else
             {
                 messageBoard.innerText="There was a tie!";
+                messageBoard.style.background="black";
             }
         }
 
