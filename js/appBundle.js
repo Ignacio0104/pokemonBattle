@@ -12,6 +12,7 @@ const wonRound=document.getElementById("won-snd");
 const lostRound= document.getElementById("lose-snd");
 const wonGame=document.getElementById("victory-sng");
 const lostGame=document.getElementById("lose-sng");
+const tieGame=document.getElementById("tie-sng");
 
 let playerHand=[];
 let computerHand=[];
@@ -45,6 +46,7 @@ function startStopMusic()
         startSong();
     }
 }
+
 
 function startSong()
 {
@@ -82,10 +84,7 @@ function show()
     }
 
     showCardsButton.style.display="none";
-    messageBoard.style.display="flex";
     battleButton.style.display="flex";
-
-   
 
 }
 
@@ -169,8 +168,10 @@ function createPokemon(pokemon)
     
     if(playerHand.length<5)
     {
-        playerHand.push(newPokemon);
-  
+        if(playerHand.indexOf(newPokemon===-1))
+        {
+            playerHand.push(newPokemon);
+        }
     }else
     {
         computerHand.push(newPokemon);
@@ -215,6 +216,7 @@ function displayPokemon(pokemon)
 
 function battle()
 {
+    messageBoard.style.display="flex";
     if(selectedPokemon>-1)
     {
         if(pokemonUsed.indexOf(selectedPokemon)===-1)
@@ -349,6 +351,8 @@ function showScoreBoard()
                 messageBoard.style.background="black";
             } else
             {
+                battleSong.pause();
+                tieGame.play();
                 messageBoard.innerText="There was a tie!";
                 messageBoard.style.background="black";
             }
