@@ -145,6 +145,7 @@
 
     .pokemon-name{
         width: auto;
+        font-size: 7px;
     }
 
     .pokemon-power{
@@ -154,8 +155,7 @@
     }
 
     .card-container{
-        border-radius: 10px;
-        border: 1px solid black;
+        border-style: none;
         width: 9vh;
     }
 
