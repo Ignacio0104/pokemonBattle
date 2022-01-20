@@ -135,7 +135,7 @@ function drawComputerHand()
     {
         const cardContainerBack = document.createElement("img")
         cardContainerBack.classList.add('card-container-back');
-        cardContainerBack.src="../assets/img/pokemon-card-back-3.png";
+        cardContainerBack.src="/assets/img/pokemon-card-back-3.png";
         mainContainer.appendChild(cardContainerBack);
 
     }
