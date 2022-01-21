@@ -258,4 +258,13 @@ footer{
     #boxWrap {
         font-size: 15px;
       }
+
+    .footer-battle{
+        position: absolute;
+    }
+    
+    .main-footer{
+        font-size: 10px;
+    }
+
 }
