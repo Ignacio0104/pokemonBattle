@@ -39,10 +39,8 @@
 }
 
 .card-container{
-    border-radius: 10px;
-    border: 1px solid black;
-    
-    
+    box-shadow: 5px 10px 10px;
+    border-style: none;
 }
 .pokemon-image-container{
     width: 100%;
