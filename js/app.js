@@ -6,12 +6,13 @@ const showCardsButton=document.querySelector(".show-btn");
 const battleButton=document.querySelector(".battle-btn");
 const keypad=document.querySelector(".button-container");
 const messageBoard=document.querySelector(".messages");
-const openingSong= new Audio("../assets/002 Title Screen.mp3");
-const battleSong= new Audio("../assets/010 Battle! Wild Pokémon (Johto).mp3");
-const wonRound=new Audio("../assets/F5YUGD6-game-award.mp3");
-const lostRound= new Audio("../assets/A47ZCE2-short-losing-disappoint.mp3");
-const wonGame=new Audio("../assets/011 Victory Against Wild Pokémon!.mp3");
-const lostGame=new Audio("../assets/ZVM6WN2-game-lose-01.mp3");
+const openingSong= document.getElementById("start-sng");
+const battleSong= document.getElementById("battle-sng");
+const wonRound=document.getElementById("won-snd");
+const lostRound= document.getElementById("lose-snd");
+const wonGame=document.getElementById("victory-sng");
+const lostGame=document.getElementById("lose-sng");
+const tieGame=document.getElementById("tie-sng");
 
 let playerHand=[];
 let computerHand=[];
@@ -45,6 +46,7 @@ function startStopMusic()
         startSong();
     }
 }
+
 
 function startSong()
 {
@@ -82,7 +84,6 @@ function show()
     }
 
     showCardsButton.style.display="none";
-    messageBoard.style.display="flex";
     battleButton.style.display="flex";
 
 }
@@ -114,6 +115,7 @@ function drawPlayerHand()
 
     startButton.style.display="none";
     showCardsButton.style.display="flex";
+    
 }
 
 function drawComputerHand()
@@ -132,14 +134,12 @@ function drawComputerHand()
     {
         const cardContainerBack = document.createElement("img")
         cardContainerBack.classList.add('card-container-back');
-        cardContainerBack.src="./assets/pokemon-card-back-3.png";
+        cardContainerBack.src="./assets/img/pokemon-card-back-3.png";
         mainContainer.appendChild(cardContainerBack);
 
     }
-
     alert("Good luck!");
-
-
+    battleSongTheme();
 }
 
 function drawCards()
@@ -168,8 +168,10 @@ function createPokemon(pokemon)
     
     if(playerHand.length<5)
     {
-        playerHand.push(newPokemon);
-  
+        if(playerHand.indexOf(newPokemon===-1))
+        {
+            playerHand.push(newPokemon);
+        }
     }else
     {
         computerHand.push(newPokemon);
@@ -207,13 +209,32 @@ function displayPokemon(pokemon)
     power.innerText=`Power: ${pokemon.power}`;
     cardContainer.appendChild(power);
 
-    pokemonNumber.addEventListener("click",selectPokemon);
+    if(pokemon.power>50&&pokemon.power<90)
+    {
+        cardContainer.classList.add('medium-power');
+    } else{
+        if (pokemon.power>90&&pokemon.power<110)
+        {
+            cardContainer.classList.add('high-power');
+        } else
+        {
+            if(pokemon.power>110)
+            {
+                cardContainer.classList.add('super-power');
+            } else
+            {
+                cardContainer.classList.add('low-power');
+            }
+        }
+    }
+    image.addEventListener("click",selectPokemon);
   
 
 }
 
 function battle()
 {
+    messageBoard.style.display="flex";
     if(selectedPokemon>-1)
     {
         if(pokemonUsed.indexOf(selectedPokemon)===-1)
@@ -286,11 +307,12 @@ function selectPokemon (event)
     if(pokemonSelection==='n')
     {
         const item = event.target; //item = where we clicked
-        item.parentElement.style.opacity="0.3";
+        item.parentElement.parentElement.style.opacity="0.3";
+        let clickedPokemon=item.parentElement.parentElement.firstChild.innerText;
         let index;
         for(i=0;i<5;i++)
         {
-            if(playerHand[i].id==item.innerText)
+            if(playerHand[i].id==clickedPokemon)
             {
                 index=i;
             }
@@ -326,19 +348,29 @@ function showScoreBoard()
         if(computerPoints>playerPoints)
         {
             messageBoard.innerText="Better luck next time!";
-            battleSong.pause();
-            lostGame.play();
+
+            if(musicFlag==='s')
+            {
+                battleSong.pause();
+                lostGame.play();
+            }
+
             messageBoard.style.background="black";
         } else 
         {
             if(playerPoints>computerPoints)
             {
                 messageBoard.innerText="Congratulations!! You won!";
-                battleSong.pause();
-                wonGame.play();
+                if(musicFlag==='s')
+                {
+                    battleSong.pause();
+                    wonGame.play();
+                }
                 messageBoard.style.background="black";
             } else
             {
+                battleSong.pause();
+                tieGame.play();
                 messageBoard.innerText="There was a tie!";
                 messageBoard.style.background="black";
             }

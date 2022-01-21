@@ -41,6 +41,8 @@
 .card-container{
     border-radius: 10px;
     border: 1px solid black;
+    
+    
 }
 .pokemon-image-container{
     width: 100%;
@@ -51,6 +53,7 @@
     display: flex;
     height: 100%;
     margin: auto;
+    
 }
 
 .pokemon-power{
@@ -91,6 +94,22 @@
 
 .messages{
     position: sticky;
+}
+
+.super-power{
+    background: radial-gradient(circle, rgba(73,72,67,0.6502976190476191) 0%, rgba(236,206,50,1) 100%);
+}
+
+.high-power{
+    background: linear-gradient(47deg, rgba(193,111,237,0.5942752100840336) 4%, rgba(117,74,236,0.8575805322128851) 49%);
+}
+
+.medium-power{
+    background: linear-gradient(180deg, rgba(237,177,72,1) 0%, rgba(240,21,21,0.6026785714285714) 81%);
+}
+
+.low-power{
+    background: linear-gradient(0deg, rgba(0,185,255,0.7175245098039216) 50%, rgba(41,54,226,1) 100%);
 }
 
 @media screen and (max-width: 660px) {
@@ -153,6 +172,7 @@
         width: auto;
         border: none;
         border: 1px solid black;
+        font-size: 8px;
     }
 
     .card-container{

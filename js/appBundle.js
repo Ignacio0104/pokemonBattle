@@ -209,6 +209,24 @@ function displayPokemon(pokemon)
     power.innerText=`Power: ${pokemon.power}`;
     cardContainer.appendChild(power);
 
+    if(pokemon.power>50&&pokemon.power<90)
+    {
+        cardContainer.classList.add('medium-power');
+    } else{
+        if (pokemon.power>90&&pokemon.power<110)
+        {
+            cardContainer.classList.add('high-power');
+        } else
+        {
+            if(pokemon.power>110)
+            {
+                cardContainer.classList.add('super-power');
+            } else
+            {
+                cardContainer.classList.add('low-power');
+            }
+        }
+    }
     image.addEventListener("click",selectPokemon);
   
 
