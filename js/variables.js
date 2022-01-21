@@ -1,0 +1,27 @@
+const mainContainer=document.querySelector(".container");
+const indexScoreContainer=document.querySelector(".score-container");
+const startButton=document.querySelector(".start-btn");
+const showCardsButton=document.querySelector(".show-btn");
+const battleButton=document.querySelector(".battle-btn");
+const keypad=document.querySelector(".button-container");
+const messageBoard=document.querySelector(".messages");
+const openingSong= document.getElementById("start-sng");
+const battleSong= document.getElementById("battle-sng");
+const wonRound=document.getElementById("won-snd");
+const lostRound= document.getElementById("lose-snd");
+const wonGame=document.getElementById("victory-sng");
+const lostGame=document.getElementById("lose-sng");
+const tieGame=document.getElementById("tie-sng");
+
+let playerHand=[];
+let computerHand=[];
+let pokemonUsed=[];
+let playerCardsDealt='n';
+let computerCardsDealt='n';
+let pokemonSelection='n';
+let musicFlag='s';
+let selectedPokemon=-1;
+let computerPokemon=0;
+let playerPoints=0;
+let computerPoints=0;
+let roundNumber=0;
