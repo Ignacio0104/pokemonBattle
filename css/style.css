@@ -140,7 +140,7 @@
         display: grid;
         grid-template-columns: repeat(5,auto);
         grid-gap: 5px;
-        grid-auto-rows: minmax(auto,20vh);
+        grid-auto-rows: auto;
         margin-bottom: 10px;
         padding-left: 5px;
         justify-content: center;
@@ -170,12 +170,16 @@
         width: auto;
         border: none;
         border: 1px solid black;
-        font-size: 8px;
+        padding: 4px;
+        text-align: center;
+        height: auto;
     }
 
     .card-container{
         border-style: none;
         width: 9vh;
+        height: auto;
+        box-shadow: 1px 3px 10px;
     }
 
     .pokemon-image-container{
