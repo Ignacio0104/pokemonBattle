@@ -53,6 +53,7 @@ function show() {
     }
     showCardsButton.style.display="none";
     battleButton.style.display="flex";
+    document.querySelector(".main-footer").classList.add("footer-battle"); //Change the position of the footer
 }
 
 /**
@@ -214,7 +215,6 @@ function battle() {
         if(pokemonUsed.indexOf(selectedPokemon)===-1){
             let result=statComparison(playerHand[selectedPokemon].power,computerHand[computerPokemon].power);
             messageBoard.innerText="";
-            document.querySelector(".main-footer").classList.add("footer-battle"); //Change the position of the footer
             displayPokemon(computerHand[computerPokemon]);
             
             switch(result)
