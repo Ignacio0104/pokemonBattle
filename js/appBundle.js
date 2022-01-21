@@ -1,3 +1,7 @@
+
+/**
+ * Function to change the music flag and to select the correct song
+ */
 function startStopMusic() {
     if(musicFlag==='s'){
         musicFlag='n';
@@ -11,6 +15,9 @@ function startStopMusic() {
     }
 }
 
+/**
+ * Function to pause or play the start Song
+ */
 
 function startSong() {
     if(musicFlag==='s'){
@@ -19,6 +26,10 @@ function startSong() {
         openingSong.pause();
     } 
 }
+
+/**
+ * Function to pause o play the battle song
+ */
 
 function battleSongTheme() {
     if(musicFlag==='s'){
@@ -29,10 +40,13 @@ function battleSongTheme() {
     } 
 
 }
+/**
+ * Function to show the cards and remove the backside carts
+ */
 function show() {
     for(i=0;i<5;i++){
         const backSide = document.querySelector(".card-container-back");
-        backSide.parentNode.removeChild(backSide);
+        backSide.parentNode.removeChild(backSide);//Remove the element with the backside img
     }
     for(i=0;i<playerHand.length;i++){
         displayPokemon(playerHand[i]);
@@ -41,28 +55,34 @@ function show() {
     battleButton.style.display="flex";
 }
 
+/**
+ * Function to call drawCards and change the flag (player)
+ */
 function drawPlayerHand() {
    if(playerCardsDealt==='n'){
         drawCards();
         playerCardsDealt='s';
     }else{
-        alert("Cards has already been dealt");
+        alert("Cards has already been dealt"); //Not used now since the start botton desapear
     }
 
     startButton.style.display="none";
     showCardsButton.style.display="flex";
 }
+/**
+ * Function to call drawCards and change the flag (computer)
+ */
 
 function drawComputerHand() {
     if(computerCardsDealt==='n'){
         drawCards();
         computerCardsDealt='s';
     }else{
-        alert("Cards has already been dealt");
+        alert("Cards has already been dealt"); //Not used now since the start botton desapear
     }
     for(i=0;i<5;i++)
     {
-        const cardContainerBack = document.createElement("img")
+        const cardContainerBack = document.createElement("img") //Create the elements where the backside cards will be shown
         cardContainerBack.classList.add('card-container-back');
         cardContainerBack.src="./assets/img/pokemon-card-back-3.png";
         mainContainer.appendChild(cardContainerBack);
@@ -70,6 +90,10 @@ function drawComputerHand() {
     alert("Good luck!");
     battleSongTheme();
 }
+
+/**
+ * Function to pick a random ID within the limits and call fetchPokemon
+ */
 
 function drawCards() {
     let i=0
@@ -81,6 +105,12 @@ function drawCards() {
 
 }
 
+/**
+ * 
+ * @param {*} id -> receives the random id previously generates
+ * Function to comunicate with the API and bring the pokemon information
+ */
+
 function fetchPokemon(id) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
     .then((res) => res.json())
@@ -89,6 +119,11 @@ function fetchPokemon(id) {
     }).catch(err=>alert(err));
 }
 
+/**
+ * 
+ * @param {*} pokemon receives the fetched pokemon
+ * Function to create a new object from the class Pokemon with the fetched data
+ */
 function createPokemon(pokemon) {
     newPokemon = new Pokemon(pokemon.id,pokemon.name,pokemon.stats[0].base_stat,pokemon.sprites.front_default);
     
@@ -103,6 +138,13 @@ function createPokemon(pokemon) {
     }
 }
 
+/**
+ * 
+ * @param {*} id receives an id
+ * @returns 0 if the id isn't in the array or -1 if is repeated
+ * Function to check if the created pokemon is already in the player hand
+ */
+
 function repeatedPokemon(id) {
     let repeated = 0;
     for(i=0;i<playerHand.length;i++){
@@ -113,6 +155,11 @@ function repeatedPokemon(id) {
     return repeated;
 }
 
+/**
+ * 
+ * @param {*} pokemon receives the pokemon
+ * Function to manipulate the DOM and create all the necessary element to show the pokemon information
+ */
 function displayPokemon(pokemon) {
     const cardContainer = document.createElement("div")
     cardContainer.classList.add('card-container');
@@ -142,7 +189,7 @@ function displayPokemon(pokemon) {
     power.innerText=`Power: ${pokemon.power}`;
     cardContainer.appendChild(power);
 
-    if(pokemon.power>50&&pokemon.power<90){
+    if(pokemon.power>50&&pokemon.power<90){ //Assign a background color according to the pokemon's power
         imageContainer.classList.add('medium-power');
     } else if (pokemon.power>90&&pokemon.power<110){
             imageContainer.classList.add('high-power');
@@ -152,11 +199,13 @@ function displayPokemon(pokemon) {
                 imageContainer.classList.add('low-power');
             }
 
-    image.addEventListener("click",selectPokemon);
+    image.addEventListener("click",selectPokemon); //Creates the event listener to select the pokemon
 
 }
 
-
+/**
+ * Function to call the comparison function and show the correct message according to the result
+ */
 function battle() {
     messageBoard.style.display="flex";
     if(selectedPokemon>-1){
@@ -199,7 +248,13 @@ function battle() {
         alert("Please select your Pokemon");
     }
 }
-
+/**
+ * 
+ * @param {*} statUno receives the first pokemon's power
+ * @param {*} statDos receives the second pokemon's power
+ * @returns 0 if they are equal, -1 if the second one is bigger than the first or 1 if the first one is bigger than the second one
+ * Function to compare the computer's pokemon vs the player's pokemon
+ */
 function statComparison (statUno,statDos) {
     let result=0;
     if(statUno>statDos){
@@ -212,11 +267,17 @@ function statComparison (statUno,statDos) {
     return result;
 }
 
+/**
+ * 
+ * @param {*} event receives the event (click)
+ * Function called by the event listener and assign the index of the pokemon to the selectedPokemon var
+ */
+
 function selectPokemon (event) {
     if(pokemonSelection==='n'){
         const item = event.target; //item = where we clicked
         item.parentElement.parentElement.style.opacity="0.3";
-        let clickedPokemon=item.parentElement.parentElement.firstChild.innerText;
+        let clickedPokemon=item.parentElement.parentElement.firstChild.innerText; 
         let index;
         for(i=0;i<5;i++){
             if(playerHand[i].id==clickedPokemon){
@@ -230,6 +291,10 @@ function selectPokemon (event) {
     }
 
 }
+
+/**
+ * Function to create all the necessary elements to show the scoreboard 
+ */
 
 function showScoreBoard() {
     indexScoreContainer.innerText="Scoreboard";
@@ -267,7 +332,5 @@ function showScoreBoard() {
                 messageBoard.innerText="There was a tie!";
             }
         }
-
     }
-
 }
