@@ -189,9 +189,9 @@ function displayPokemon(pokemon) {
     power.innerText=`Power: ${pokemon.power}`;
     cardContainer.appendChild(power);
 
-    if(pokemon.power>50&&pokemon.power<90){ //Assign a background color according to the pokemon's power
+    if(pokemon.power>50&&pokemon.power<=90){ //Assign a background color according to the pokemon's power
         imageContainer.classList.add('medium-power');
-    } else if (pokemon.power>90&&pokemon.power<110){
+    } else if (pokemon.power>90&&pokemon.power<=110){
             imageContainer.classList.add('high-power');
         } else if(pokemon.power>110){
                 imageContainer.classList.add('super-power');

@@ -83,6 +83,8 @@
     grid-template-columns: repeat(3,auto);
     justify-content: space-around;
     padding: 10px;
+    border-style: outset;
+    margin-bottom: 10px;
 }
 
 .player-container,.computer-container
