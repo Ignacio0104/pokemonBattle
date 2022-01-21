@@ -88,6 +88,7 @@ function drawComputerHand() {
         mainContainer.appendChild(cardContainerBack);
     }
   
+    dbox ("Good Luck!!");
     battleSongTheme();
 }
 
@@ -242,12 +243,11 @@ function battle() {
             showScoreBoard();
             computerPokemon++;
         }else{
-            alert("This pokemon has already been used");
+            dbox("This pokemon has already been used");
         }
-
     }else{
         messageBoard.innerText="No Pokemon Selected";
-        alert("Please select your Pokemon");
+        dbox ("Please select your Pokemon");
     }
 }
 /**
@@ -289,7 +289,7 @@ function selectPokemon (event) {
         selectedPokemon=index;
         pokemonSelection='s';
     } else{
-        alert("You've already selected a Pokemon!");
+        dbox("You've already selected a Pokemon!");
     }
 
 }
@@ -300,6 +300,7 @@ function selectPokemon (event) {
 
 function showScoreBoard() {
     indexScoreContainer.innerText="Scoreboard";
+    
 
     const playerScore = document.createElement("div")
     playerScore.classList.add('player-container');
@@ -336,3 +337,11 @@ function showScoreBoard() {
         }
     }
 }
+
+
+function dbox (msg) {
+    if (msg != undefined) {
+      document.getElementById("boxTxt").innerHTML = msg;
+      document.getElementById("boxBack").classList.add("show");
+    } else { document.getElementById("boxBack").classList.remove("show"); }
+  }
