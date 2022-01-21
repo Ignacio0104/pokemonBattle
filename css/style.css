@@ -119,14 +119,28 @@ footer{
     height: 2.5rem; 
 }
 
+.footer-battle{
+    position: relative;
+    margin-top: 20px;
+}
+
 .main-footer{
-    color: rgb(255, 255, 255);
-    background: linear-gradient(128deg, rgba(200,111,237,0.6334908963585435) 13%, rgba(74,221,236,0.8687850140056023) 57%);
+    color: rgb(24, 23, 23);
+    background: linear-gradient(122deg, rgba(237,177,72,0.6979166666666667) 24%, rgba(138,21,240,0.42620798319327735) 81%);
     margin-top: auto;
     display: flex;
     height: 15vh;
     align-items: center;
     justify-content: space-between;
+}
+
+.footer-text{
+    padding: 20px;
+}
+
+.footer-icons{
+    padding: 20px;
+    width: auto;
 }
 
 @media screen and (max-width: 660px) {
@@ -210,6 +224,8 @@ footer{
     .messages{
         font-size: 9px;
     }
+
+ 
 
 }
 /*
