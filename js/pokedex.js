@@ -10,8 +10,30 @@ const pokemonPower=document.querySelector(".pokemon-power");
 const pokedexTheme=document.getElementById("pokedex-sng");
 const click=document.getElementById("click-sound");
 
+const typesWithColor = {
+    bug:'#209a12',
+    dark:'#747c74',
+    dragon:'#67ccf9',
+    electric:'#f4f129',
+    fairy:'#e398d6',
+    fighting:'#b46d10',
+    fire:'#fa2e14',
+    flying:'#9fbdc3',
+    ghost:'#997da2',
+    grass:'#28a762',
+    ground:'#735107',
+    ice:'#21d5f6',
+    normal:'#c5c3cf',
+    poison:'#b404d2',
+    psychic:'#df50c1',
+    rock:'#582603',
+    steel:'#7caaa7',
+    water:'#3835e6'
+};
+
 let musicFlag='n';
 let requestedPokemon=-1;
+let secondColor="black";
 
 function startStopMusic() {
     click.play();
@@ -62,7 +84,14 @@ function showPokemon(pokemon) {
     pokemonType.innerText=`Type: ${pokemon.types[0].type.name}`;
     pokemonPower.innerText=`Power: ${pokemon.stats[0].base_stat}`;
 
+    setCardColor(pokemon.types[0].type.name);
     requestedPokemon=pokemon.id;
+}
+
+function setCardColor(type)
+{
+    let color=typesWithColor[type];
+    pokemonImage.style.background = `linear-gradient(122deg, ${color}  24%, ${secondColor}  81%)`;
 }
 
 function nextPokemon()

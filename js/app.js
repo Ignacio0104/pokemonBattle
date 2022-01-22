@@ -55,7 +55,6 @@ function show() {
     }
     showCardsButton.style.display="none";
     battleButton.style.display="flex";
-    document.querySelector(".main-footer").classList.add("footer-battle"); //Change the position of the footer
 }
 
 /**
@@ -72,6 +71,7 @@ function drawPlayerHand() {
 
     startButton.style.display="none";
     showCardsButton.style.display="flex";
+    document.querySelector(".main-footer").classList.add("footer-battle");//Change the position of the footer
 }
 /**
  * Function to call drawCards and change the flag (computer)
