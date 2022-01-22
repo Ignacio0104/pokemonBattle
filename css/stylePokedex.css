@@ -109,6 +109,14 @@ footer{
     justify-content: space-between;
 }
 
+.button-container{
+    display: none;
+}
+
+.button-container-show{
+    display: flex;
+    justify-content: space-around;
+}
 
 @media screen and (max-width: 725px) {
 

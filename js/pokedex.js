@@ -8,22 +8,7 @@ const pokemonWeight=document.querySelector(".pokemon-weigth");
 const pokemonType=document.querySelector(".pokemon-type");
 const pokemonPower=document.querySelector(".pokemon-power");
 
-
-
-function showInput(value)
-{
-    switch(value)
-    {
-        case "pokemonName":
-            inputSection.type="text";
-            break;
-        
-        case "pokemonId":
-            inputSection.type="number";
-            break;
-
-    }
-}
+let requestedPokemon=-1;
 
 function searchPokemon()
 {
@@ -31,30 +16,25 @@ function searchPokemon()
 
     if(input.type==="text")
     {
-        fetchPokemonName(input.value.toLowerCase());
+        requestedPokemon=input.value.toLowerCase();
+        
     } else
     {
-        fetchPokemonId(input.value);
+        requestedPokemon=input.value;
     }
-
-
+    fetchPokemon(requestedPokemon)
+    document.querySelector(".main-footer").classList.add("footer-battle");
+    document.querySelector(".button-container").classList.toggle("button-container-show");
 }
 
-function fetchPokemonId(id) {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+function fetchPokemon(value) {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${value}/`)
     .then((res) => res.json())
     .then((data) => {
        showPokemon(data);
     }).catch(err=>alert(err));
 }
 
-function fetchPokemonName(name) {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${name}/`)
-    .then((res) => res.json())
-    .then((data) => {
-        showPokemon(data);
-    }).catch(err=>alert(err));
-}
 
 function showPokemon(pokemon) {
 
@@ -66,4 +46,20 @@ function showPokemon(pokemon) {
     pokemonWeight.innerText=`Weight: ${(pokemon.weight)/10} kg`;
     pokemonType.innerText=`Type: ${pokemon.types[0].type.name}`;
     pokemonPower.innerText=`Power: ${pokemon.stats[0].base_stat}`;
+}
+
+function nextPokemon()
+{
+    requestedPokemon++;
+    fetchPokemon(requestedPokemon);
+}
+
+function previousPokemon()
+{
+    if(requestedPokemon>0)
+    {
+        requestedPokemon--;
+        fetchPokemon(requestedPokemon);
+    }
+    
 }

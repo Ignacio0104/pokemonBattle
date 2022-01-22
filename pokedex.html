@@ -24,10 +24,6 @@
         </div>
 
         <div class="container">
-            <select name="browserSelection" id="browserSelection" onchange="showInput(value)">
-                <option value="pokemonName">Search by name</option>
-                <option value="pokemonId">Search by id</option>
-            </select>
             <input type="text" name="inputNameNumber" id="input-section">
             <button onClick="searchPokemon()"> Search </button>
         </div>
@@ -43,6 +39,11 @@
             <div class="pokemon-type"></div>
             <div class="pokemon-power"></div>
             <div class="pokemon-bottom"></div>
+        </div>
+
+        <div class="button-container">
+            <button onclick="nextPokemon()">Next</button>
+            <button onclick="previousPokemon()">Previous</button>
         </div>
       
 
