@@ -24,7 +24,7 @@ function searchPokemon()
     }
     fetchPokemon(requestedPokemon)
     document.querySelector(".main-footer").classList.add("footer-battle");
-    document.querySelector(".button-container").classList.toggle("button-container-show");
+    document.querySelector(".button-container").classList.add("button-container-show");
 }
 
 function fetchPokemon(value) {
