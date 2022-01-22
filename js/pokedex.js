@@ -45,7 +45,6 @@ function fetchPokemonId(id) {
     .then((res) => res.json())
     .then((data) => {
        showPokemon(data);
-        alert(data.name);
     }).catch(err=>alert(err));
 }
 
@@ -54,7 +53,6 @@ function fetchPokemonName(name) {
     .then((res) => res.json())
     .then((data) => {
         showPokemon(data);
-        alert(data.name);
     }).catch(err=>alert(err));
 }
 

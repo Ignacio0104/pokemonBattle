@@ -126,6 +126,16 @@ footer{
         justify-content: center;
     }
 
+    .pokemon-container-show{
+        display: grid;
+        grid-template-columns: repeat(2,auto);
+        grid-template-rows: repeat(7,30px);
+        border: 1px solid black;
+        margin-top: 40px;
+        margin: 40px auto 40px auto;
+        width: auto;
+    }
+
     #input-section
     {
         width: 80%;
@@ -139,10 +149,18 @@ footer{
     }
     
     .main-footer{
+        margin-top: 30px;
         font-size: 10px;
     }
 
     .main-header{
         font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 405px) {
+
+    .pokemon-container-show{
+        font-size: 12px;
     }
 }
