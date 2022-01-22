@@ -1,5 +1,8 @@
-function startStopMusic()
-{
+
+/**
+ * Function to change the music flag and to select the correct song
+ */
+ function startStopMusic() {
     if(musicFlag==='s'){
         musicFlag='n';
     }else{
@@ -12,9 +15,11 @@ function startStopMusic()
     }
 }
 
+/**
+ * Function to pause or play the start Song
+ */
 
-function startSong()
-{
+function startSong() {
     if(musicFlag==='s'){
         openingSong.play();
     }else{
@@ -22,8 +27,11 @@ function startSong()
     } 
 }
 
-function battleSongTheme()
-{
+/**
+ * Function to pause o play the battle song
+ */
+
+function battleSongTheme() {
     if(musicFlag==='s'){
         openingSong.pause();
         battleSong.play();
@@ -32,53 +40,64 @@ function battleSongTheme()
     } 
 
 }
-function show()
-{
+/**
+ * Function to show the cards and remove the backside carts
+ */
+function show() {
     for(i=0;i<5;i++){
         const backSide = document.querySelector(".card-container-back");
-        backSide.parentNode.removeChild(backSide);
+        backSide.parentNode.removeChild(backSide);//Remove the element with the backside img
     }
     for(i=0;i<playerHand.length;i++){
         displayPokemon(playerHand[i]);
     }
     showCardsButton.style.display="none";
     battleButton.style.display="flex";
+    document.querySelector(".main-footer").classList.add("footer-battle"); //Change the position of the footer
 }
 
-function drawPlayerHand()
-{
+/**
+ * Function to call drawCards and change the flag (player)
+ */
+function drawPlayerHand() {
    if(playerCardsDealt==='n'){
         drawCards();
         playerCardsDealt='s';
     }else{
-        alert("Cards has already been dealt");
+        alert("Cards has already been dealt"); //Not used now since the start botton desapear
     }
 
     startButton.style.display="none";
     showCardsButton.style.display="flex";
 }
+/**
+ * Function to call drawCards and change the flag (computer)
+ */
 
-function drawComputerHand()
-{
+function drawComputerHand() {
     if(computerCardsDealt==='n'){
         drawCards();
         computerCardsDealt='s';
     }else{
-        alert("Cards has already been dealt");
+        alert("Cards has already been dealt"); //Not used now since the start botton desapear
     }
     for(i=0;i<5;i++)
     {
-        const cardContainerBack = document.createElement("img")
+        const cardContainerBack = document.createElement("img") //Create the elements where the backside cards will be shown
         cardContainerBack.classList.add('card-container-back');
         cardContainerBack.src="./assets/img/pokemon-card-back-3.png";
         mainContainer.appendChild(cardContainerBack);
     }
-    alert("Good luck!");
+  
+    dbox ("Good Luck!!");
     battleSongTheme();
 }
 
-function drawCards()
-{
+/**
+ * Function to pick a random ID within the limits and call fetchPokemon
+ */
+
+function drawCards() {
     let i=0
     while(i<5){
         id=Math.round(Math.random() * (386- 1) + 1);
@@ -88,6 +107,12 @@ function drawCards()
 
 }
 
+/**
+ * 
+ * @param {*} id -> receives the random id previously generates
+ * Function to comunicate with the API and bring the pokemon information
+ */
+
 function fetchPokemon(id) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
     .then((res) => res.json())
@@ -96,8 +121,12 @@ function fetchPokemon(id) {
     }).catch(err=>alert(err));
 }
 
-function createPokemon(pokemon)
-{
+/**
+ * 
+ * @param {*} pokemon receives the fetched pokemon
+ * Function to create a new object from the class Pokemon with the fetched data
+ */
+function createPokemon(pokemon) {
     newPokemon = new Pokemon(pokemon.id,pokemon.name,pokemon.stats[0].base_stat,pokemon.sprites.front_default);
     
     if(playerHand.length<5){
@@ -111,8 +140,14 @@ function createPokemon(pokemon)
     }
 }
 
-function repeatedPokemon(id)
-{
+/**
+ * 
+ * @param {*} id receives an id
+ * @returns 0 if the id isn't in the array or -1 if is repeated
+ * Function to check if the created pokemon is already in the player hand
+ */
+
+function repeatedPokemon(id) {
     let repeated = 0;
     for(i=0;i<playerHand.length;i++){
         if(playerHand[i].id===id){
@@ -122,8 +157,12 @@ function repeatedPokemon(id)
     return repeated;
 }
 
-function displayPokemon(pokemon)
-{
+/**
+ * 
+ * @param {*} pokemon receives the pokemon
+ * Function to manipulate the DOM and create all the necessary element to show the pokemon information
+ */
+function displayPokemon(pokemon) {
     const cardContainer = document.createElement("div")
     cardContainer.classList.add('card-container');
     mainContainer.appendChild(cardContainer);
@@ -152,9 +191,9 @@ function displayPokemon(pokemon)
     power.innerText=`Power: ${pokemon.power}`;
     cardContainer.appendChild(power);
 
-    if(pokemon.power>50&&pokemon.power<90){
+    if(pokemon.power>50&&pokemon.power<=90){ //Assign a background color according to the pokemon's power
         imageContainer.classList.add('medium-power');
-    } else if (pokemon.power>90&&pokemon.power<110){
+    } else if (pokemon.power>90&&pokemon.power<=110){
             imageContainer.classList.add('high-power');
         } else if(pokemon.power>110){
                 imageContainer.classList.add('super-power');
@@ -162,14 +201,16 @@ function displayPokemon(pokemon)
                 imageContainer.classList.add('low-power');
             }
 
-    image.addEventListener("click",selectPokemon);
+    image.addEventListener("click",selectPokemon); //Creates the event listener to select the pokemon
 
 }
 
-
-function battle()
-{
+/**
+ * Function to call the comparison function and show the correct message according to the result
+ */
+function battle() {
     messageBoard.style.display="flex";
+
     if(selectedPokemon>-1){
         if(pokemonUsed.indexOf(selectedPokemon)===-1){
             let result=statComparison(playerHand[selectedPokemon].power,computerHand[computerPokemon].power);
@@ -202,17 +243,21 @@ function battle()
             showScoreBoard();
             computerPokemon++;
         }else{
-            alert("This pokemon has already been used");
+            dbox("This pokemon has already been used");
         }
-
     }else{
         messageBoard.innerText="No Pokemon Selected";
-        alert("Please select your Pokemon");
+        dbox ("Please select your Pokemon");
     }
 }
-
-function statComparison (statUno,statDos)
-{
+/**
+ * 
+ * @param {*} statUno receives the first pokemon's power
+ * @param {*} statDos receives the second pokemon's power
+ * @returns 0 if they are equal, -1 if the second one is bigger than the first or 1 if the first one is bigger than the second one
+ * Function to compare the computer's pokemon vs the player's pokemon
+ */
+function statComparison (statUno,statDos) {
     let result=0;
     if(statUno>statDos){
         result=1;
@@ -224,12 +269,17 @@ function statComparison (statUno,statDos)
     return result;
 }
 
-function selectPokemon (event)
-{
+/**
+ * 
+ * @param {*} event receives the event (click)
+ * Function called by the event listener and assign the index of the pokemon to the selectedPokemon var
+ */
+
+function selectPokemon (event) {
     if(pokemonSelection==='n'){
         const item = event.target; //item = where we clicked
         item.parentElement.parentElement.style.opacity="0.3";
-        let clickedPokemon=item.parentElement.parentElement.firstChild.innerText;
+        let clickedPokemon=item.parentElement.parentElement.firstChild.innerText; 
         let index;
         for(i=0;i<5;i++){
             if(playerHand[i].id==clickedPokemon){
@@ -239,14 +289,18 @@ function selectPokemon (event)
         selectedPokemon=index;
         pokemonSelection='s';
     } else{
-        alert("You've already selected a Pokemon!");
+        dbox("You've already selected a Pokemon!");
     }
 
 }
 
-function showScoreBoard()
-{
+/**
+ * Function to create all the necessary elements to show the scoreboard 
+ */
+
+function showScoreBoard() {
     indexScoreContainer.innerText="Scoreboard";
+    
 
     const playerScore = document.createElement("div")
     playerScore.classList.add('player-container');
@@ -269,7 +323,7 @@ function showScoreBoard()
             if(musicFlag==='s'){
                 lostGame.play();
             } 
-             
+
         } else {
             if(playerPoints>computerPoints){
                 messageBoard.innerText="Congratulations!! You won!";
@@ -281,7 +335,14 @@ function showScoreBoard()
                 messageBoard.innerText="There was a tie!";
             }
         }
-
     }
+}
 
+
+function dbox (msg) {
+    if (msg != undefined) {
+      document.getElementById("boxTxt").innerHTML = msg;
+      document.getElementById("boxBack").classList.add("show");
+    } else { document.getElementById("boxBack").classList.remove("show"); 
+}
 }

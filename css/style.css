@@ -16,7 +16,6 @@
     margin-bottom: 10px;
     padding-left: 5px;
     justify-content: center;
-
 }
 
 .main-title h1{
@@ -272,4 +271,7 @@ footer{
         font-size: 10px;
     }
 
+    .main-header{
+        font-size: 10px;
+    }
 }
