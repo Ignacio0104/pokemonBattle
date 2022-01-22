@@ -12,6 +12,7 @@ const lostRound= document.getElementById("lose-snd");
 const wonGame=document.getElementById("victory-sng");
 const lostGame=document.getElementById("lose-sng");
 const tieGame=document.getElementById("tie-sng");
+const click=document.getElementById("click-sound");
 
 let playerHand=[];
 let computerHand=[];

@@ -3,6 +3,7 @@
  * Function to change the music flag and to select the correct song
  */
  function startStopMusic() {
+     click.play();
     if(musicFlag==='s'){
         musicFlag='n';
     }else{
@@ -44,6 +45,7 @@ function battleSongTheme() {
  * Function to show the cards and remove the backside carts
  */
 function show() {
+    click.play();
     for(i=0;i<5;i++){
         const backSide = document.querySelector(".card-container-back");
         backSide.parentNode.removeChild(backSide);//Remove the element with the backside img
@@ -60,6 +62,7 @@ function show() {
  * Function to call drawCards and change the flag (player)
  */
 function drawPlayerHand() {
+    click.play();
    if(playerCardsDealt==='n'){
         drawCards();
         playerCardsDealt='s';
@@ -89,7 +92,7 @@ function drawComputerHand() {
         mainContainer.appendChild(cardContainerBack);
     }
   
-    dbox ("Good Luck!!");
+    dbox ("Good Luck!!  ");
     battleSongTheme();
 }
 
@@ -209,6 +212,7 @@ function displayPokemon(pokemon) {
  * Function to call the comparison function and show the correct message according to the result
  */
 function battle() {
+    click.play();
     messageBoard.style.display="flex";
 
     if(selectedPokemon>-1){
@@ -243,11 +247,11 @@ function battle() {
             showScoreBoard();
             computerPokemon++;
         }else{
-            dbox("This pokemon has already been used");
+            dbox("This pokemon has already been used  ");
         }
     }else{
         messageBoard.innerText="No Pokemon Selected";
-        dbox ("Please select your Pokemon");
+        dbox ("Please select your Pokemon  ");
     }
 }
 /**
@@ -289,7 +293,7 @@ function selectPokemon (event) {
         selectedPokemon=index;
         pokemonSelection='s';
     } else{
-        dbox("You've already selected a Pokemon!");
+        dbox("You've already selected a Pokemon!  ");
     }
 
 }

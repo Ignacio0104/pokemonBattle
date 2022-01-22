@@ -170,7 +170,7 @@ footer{
     padding: 10px;
     background: #fff;
     border-radius: 1rem;
-    border-style: dashed;
+    border-style: inset;
     justify-content: space-between;
 
   }

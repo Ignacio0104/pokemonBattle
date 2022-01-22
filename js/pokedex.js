@@ -7,11 +7,26 @@ const pokemonHeight=document.querySelector(".pokemon-heigth");
 const pokemonWeight=document.querySelector(".pokemon-weigth");
 const pokemonType=document.querySelector(".pokemon-type");
 const pokemonPower=document.querySelector(".pokemon-power");
+const pokedexTheme=document.getElementById("pokedex-sng");
+const click=document.getElementById("click-sound");
 
+let musicFlag='n';
 let requestedPokemon=-1;
+
+function startStopMusic() {
+    click.play();
+    if(musicFlag==='s'){
+        pokedexTheme.pause();
+        musicFlag='n';
+    }else{
+        pokedexTheme.play();
+        musicFlag='s';
+    }
+}
 
 function searchPokemon()
 {
+    click.play();
     let input=document.getElementById("input-section");
 
     if(input.type==="text")
@@ -46,16 +61,20 @@ function showPokemon(pokemon) {
     pokemonWeight.innerText=`Weight: ${(pokemon.weight)/10} kg`;
     pokemonType.innerText=`Type: ${pokemon.types[0].type.name}`;
     pokemonPower.innerText=`Power: ${pokemon.stats[0].base_stat}`;
+
+    requestedPokemon=pokemon.id;
 }
 
 function nextPokemon()
 {
+    click.play();
     requestedPokemon++;
     fetchPokemon(requestedPokemon);
 }
 
 function previousPokemon()
 {
+    click.play();
     if(requestedPokemon>0)
     {
         requestedPokemon--;

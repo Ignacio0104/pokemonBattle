@@ -9,13 +9,14 @@
     <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
     <link rel="icon" href="./assets/img/pngwing.com.png">
     <!--Audios and sounds-->
-
+    <audio src="./assets/soundFX/pokedexSong.mp3" id="pokedex-sng"></audio>
+    <audio src="./assets/soundFX/mixkit-positive-interface-click-1112.wav" id="click-sound"></audio>
     <script src="js/Pokemon.js"></script>
     <title>Pokedex</title>
 </head>
-    <body onload="startSong()">
-
+    <body>
         <header class="main-header">
+            <button class="stop-music nes-btn" id="stop-music-button"onclick="startStopMusic()">Music On/Off</button>
             <a class="pokedex-btn nes-btn" id="pokedex-button" href="./index.html"">PokeBattle</a>
         </header>
     
@@ -25,7 +26,7 @@
 
         <div class="container">
             <input type="text" name="inputNameNumber" id="input-section">
-            <button onClick="searchPokemon()"> Search </button>
+            <button class="search-btn" onClick="searchPokemon()"> Search </button>
         </div>
 
         <div class="pokemon-container">
