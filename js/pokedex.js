@@ -11,29 +11,29 @@ const pokedexTheme=document.getElementById("pokedex-sng");
 const click=document.getElementById("click-sound");
 
 const typesWithColor = {
-    bug:'#209a12',
-    dark:'#747c74',
-    dragon:'#67ccf9',
-    electric:'#f4f129',
-    fairy:'#e398d6',
-    fighting:'#b46d10',
-    fire:'#fa2e14',
-    flying:'#9fbdc3',
-    ghost:'#997da2',
-    grass:'#28a762',
-    ground:'#735107',
-    ice:'#21d5f6',
-    normal:'#c5c3cf',
-    poison:'#b404d2',
-    psychic:'#df50c1',
-    rock:'#582603',
-    steel:'#7caaa7',
-    water:'#3835e6'
+    bug:'rgba(32,154,18,0.5102415966386555)',
+    dark:'rgba(116,124,116,0.5550595238095238)',
+    dragon:'rgba(103,204,249,0.5270483193277311)',
+    electric:'rgba(237,232,51,0.5018382352941176)',
+    fairy:'rgba(227,152,214,0.5018382352941176)',
+    fighting:'rgba(180,109,16,0.5522584033613445)',
+    fire:'rgba(250,46,20,0.5494572829131652)',
+    flying:'rgba(159,189,195,0.5522584033613445)',
+    ghost:'rgba(153,125,162,0.5578606442577031)',
+    grass:'rgba(40,167,98,0.5634628851540616)',
+    ground:'rgba(115,81,7,0.5578606442577031)',
+    ice:'rgba(33,213,246,0.5522584033613445)',
+    normal:'rgba(197,195,207,0.5410539215686274)',
+    poison:'rgba(180,4,210,0.5494572829131652)',
+    psychic:'rgba(223,80,193,0.5326505602240896)',
+    rock:'rgba(88,38,3,0.5382528011204482)',
+    steel:'rgba(124,170,167,0.5326505602240896)',
+    water:'rgba(56,53,230,0.5242471988795518) '
 };
 
 let musicFlag='n';
 let requestedPokemon=-1;
-let secondColor="black";
+let secondColor="rgba(9,9,9,0.6306897759103641)";
 
 function startStopMusic() {
     click.play();

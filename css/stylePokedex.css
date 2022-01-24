@@ -37,7 +37,6 @@
     border: 1px solid black;
 }
 
-
 .pokemon-power,.pokemon-type,.pokemon-weigth,.pokemon-heigth,.pokemon-number{
     border: 1px solid black;
     padding-left: 10px;
@@ -137,7 +136,7 @@ footer{
 
     .pokemon-container-show{
         display: grid;
-        grid-template-columns: repeat(2,auto);
+        grid-template-columns: 1fr 2fr;
         grid-template-rows: repeat(7,30px);
         border: 1px solid black;
         margin-top: 40px;
@@ -152,7 +151,6 @@ footer{
         margin: 10px auto 10px auto;
     }
 
-
     .footer-battle{
         position: absolute;
     }
@@ -165,6 +163,17 @@ footer{
     .main-header{
         font-size: 10px;
     }
+
+    .pokemon-image{
+        width: 156px;
+        height: 148px ;
+    }
+
+    .pokemon-image img{
+        width: 156px;
+        height: 148px ;
+    }
+    
 }
 
 @media screen and (max-width: 405px) {
