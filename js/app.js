@@ -248,6 +248,7 @@ function battle() {
             computerPokemon++;
         }else{
             dbox("This pokemon has already been used  ");
+            pokemonSelection='n';
         }
     }else{
         messageBoard.innerText="No Pokemon Selected";
@@ -292,10 +293,10 @@ function selectPokemon (event) {
         }
         selectedPokemon=index;
         pokemonSelection='s';
+
     } else{
         dbox("You've already selected a Pokemon!  ");
     }
-
 }
 
 /**

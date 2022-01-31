@@ -69,7 +69,7 @@ function fetchPokemon(value) {
     .then((res) => res.json())
     .then((data) => {
        showPokemon(data);
-    }).catch(err=>alert(err));
+    }).catch(err=>alert("Pokemon wasn't found"));
 }
 
 
